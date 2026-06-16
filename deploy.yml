@@ -1,0 +1,15 @@
+- name: Deploy Maven Artifact
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Create deployment directory
+      file:
+        path: /var/jenkins_home/deploy
+        state: directory
+        mode: '0755'
+
+    - name: Copy artifact
+      copy:
+        src: target/jenkins-ansible-1.0-SNAPSHOT.jar
+        dest: /var/jenkins_home/deploy/jenkins-ansible.jar
